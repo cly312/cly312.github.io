@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>倒计时器</title>
+	<script type="text/javascript">
+		function countdown() {
+			var inputDate = document.getElementById("input-date").value;
+			var targetDate = new Date(inputDate);
+			var currentDate = new Date();
+			var timeDiff = Math.abs(targetDate.getTime() - currentDate.getTime());
+			var daysLeft = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+			var hoursLeft = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutesLeft = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+			var secondsLeft = Math.floor((timeDiff % (1000 * 60)) / 1000);
+			document.getElementById("countdown-result").innerHTML = daysLeft + "天" + hoursLeft + "时" + minutesLeft + "分" + secondsLeft + "秒";
+			setTimeout(countdown, 1000);
+		}
+	</script>
+</head>
+<body>
+	<h2>倒计时器</h2>
+	<label for="input-date">请输入目标时间：</label>
+	<input type="datetime-local" id="input-date"></br></br>
+	<button onclick="countdown()">开始计时</button></br></br>
+	<div id="countdown-result"></div>
+</body>
+</html>
