@@ -44,7 +44,20 @@
   #sponsorList th {
     background-color: #f2f2f2;
   }
-  
+
+  .message {
+    display: none;
+    margin-top: 10px;
+  }
+
+  .message-container {
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .message-container p {
+    margin: 5px 0;
+  }
 </style>
 </head>
 <body>
@@ -56,6 +69,7 @@
   <img id="qrCode" src="juhe.jpg" alt="赞助二维码">
   <div id="sponsorList">
     <h2>赞助名单</h2>
+    <p>点击查看留言</p>
     <table>
       <thead>
         <tr>
@@ -72,9 +86,10 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // 赞助名单数据，格式为 [{ name: '赞助者1', amount: 100 }, { name: '赞助者2', amount: 200 }, ...]
+  // 赞助名单数据，格式为 [{ name: '赞助者1', amount: 100, message: '留言1' }, { name: '赞助者2', amount: 200, message: '留言2' }, ...]
   var sponsors = [
-    { name: '成为第一个赞助者', amount: 0 },
+    { name: '成为第一个赞助者', amount: 0, message: '无' },
+    // 添加更多赞助者数据...
   ];
 
   // 按金额降序排序
@@ -89,6 +104,28 @@ document.addEventListener("DOMContentLoaded", function() {
     var row = document.createElement("tr");
     row.innerHTML = "<td>" + sponsor.name + "</td><td>" + sponsor.amount + "</td>";
     sponsorDataElement.appendChild(row);
+
+    // 添加留言区域
+    var messageContainer = document.createElement("div");
+    messageContainer.classList.add("message-container");
+    row.parentNode.insertBefore(messageContainer, row.nextSibling);
+    var message = document.createElement("p");
+    message.textContent = sponsor.message;
+    messageContainer.appendChild(message);
+    messageContainer.style.display = "none";
+  });
+
+  // 添加点击事件监听器
+  var rows = document.querySelectorAll("#sponsorData tr");
+  rows.forEach(function(row, index) {
+    row.addEventListener("click", function() {
+      var messageContainer = this.nextSibling;
+      if (messageContainer.style.display === "none") {
+        messageContainer.style.display = "block";
+      } else {
+        messageContainer.style.display = "none";
+      }
+    });
   });
 });
 </script>
