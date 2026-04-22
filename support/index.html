@@ -1,95 +1,395 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>赞助页面</title>
+<title>赞助支持</title>
+<!-- 引入 Google Fonts 和 FontAwesome 图标库 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
+  :root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --secondary-color: #ec4899;
+    --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-main: #1f2937;
+    --text-secondary: #6b7280;
+    --border-radius: 16px;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+
+  * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    text-align: center;
   }
-  
-  #sponsorship {
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    color: var(--text-main);
   }
-  
-  #qrCode {
-    width: 300px;
-    height: 300px;
-    margin: 20px auto;
-  }
-  
-  #sponsorList {
-    text-align: left;
-    margin-top: 20px;
-  }
-  
-  #sponsorList table {
+
+  /* 主容器 */
+  .container {
     width: 100%;
-    border-collapse: collapse;
-  }
-  
-  #sponsorList th, #sponsorList td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  #sponsorList th {
-    background-color: #f2f2f2;
+    max-width: 600px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    animation: slideUp 0.6s ease-out;
   }
 
-  .message {
-    display: none;
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 头部区域 */
+  header {
+    text-align: center;
+    padding: 40px 30px 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .email-box {
+    display: inline-flex;
+    align-items: center;
+    background: #f3f4f6;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .email-box:hover {
+    background: #e5e7eb;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  .email-box i {
+    margin-right: 8px;
+  }
+
+  /* 二维码区域 */
+  .qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .qr-wrapper {
+    position: relative;
+    padding: 15px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .qr-wrapper:hover {
+    transform: scale(1.02);
+  }
+
+  #qrCode {
+    width: 240px;
+    height: 240px;
+    display: block;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
     margin-top: 10px;
   }
 
-  .message-container {
-    text-align: left;
-    margin-top: 10px;
+  .tag {
+    background: #eff6ff;
+    color: var(--primary-color);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
   }
 
-  .message-container p {
-    margin: 5px 0;
+  .link-btn {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+  }
+
+  .link-btn:hover {
+    color: #db2777;
+    text-decoration: underline;
+  }
+
+  /* 赞助名单列表 */
+  .sponsor-section {
+    background: #fafafa;
+    padding: 30px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .section-title i {
+    color: #fbbf24; /* 金色 */
+    margin-right: 8px;
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: normal;
+  }
+
+  /* 列表项样式 */
+  .sponsor-list {
+    list-style: none;
+  }
+
+  .sponsor-item {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .sponsor-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: #e5e7eb;
+  }
+
+  .sponsor-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .sponsor-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .sponsor-name {
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .sponsor-amount {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+  }
+
+  .toggle-icon {
+    color: #9ca3af;
+    transition: transform 0.3s ease;
+    margin-left: 10px;
+  }
+
+  /* 展开状态样式 */
+  .sponsor-item.active .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .sponsor-item.active {
+    border-color: var(--primary-color);
+  }
+
+  .message-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+    background: #f9fafb;
+    padding: 0 20px;
+  }
+
+  .sponsor-item.active .message-content {
+    max-height: 200px; /* 近似值，足够容纳留言即可 */
+    transition: max-height 0.3s ease-in-out;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-top: 1px dashed #e5e7eb;
+  }
+
+  .message-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* 底部 */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: white;
+  }
+
+  footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s;
+  }
+
+  footer a:hover {
+    color: var(--primary-color);
+  }
+
+  /* 提示框 Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(31, 41, 55, 0.9);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  /* 响应式微调 */
+  @media (max-width: 480px) {
+    h1 { font-size: 1.6rem; }
+    #qrCode { width: 200px; height: 200px; }
+    .sponsor-main { padding: 12px 15px; }
+    .container { margin-bottom: 20px; }
   }
 </style>
 </head>
 <body>
-<div id="sponsorship">
-  <h1>赞助我们</h1>
-  <h3>赞助后请联系邮件:282753431@qq.com将您放入赞助名单</h3>
-  <p>感谢您的慷慨赞助！</p>
-  <p>支持微信，支付宝，银联，信用卡，花呗等</p>
-  <img id="qrCode" src="juhe.jpg" alt="赞助二维码">
-  <div id="sponsorList">
-    <h2>赞助名单</h2>
-    <p>点击查看留言</p>
-    <table>
-      <thead>
-        <tr>
-          <th>名称</th>
-          <th>金额</th>
-        </tr>
-      </thead>
-      <tbody id="sponsorData">
-        <!-- 赞助名单将由JavaScript动态生成 -->
-      </tbody>
-    </table>
+
+<div class="container">
+  <header>
+    <h1><i class="fa-solid fa-heart" style="color: var(--secondary-color);"></i> 赞助我们</h1>
+    <p class="subtitle">您的支持是我们持续更新的动力</p>
+    <p class="subtitle">赞助后请通过邮箱联系我们</p>
+    <div class="email-box" onclick="copyEmail()" title="点击复制邮箱">
+      <i class="fa-regular fa-envelope"></i>
+      <span id="emailText">282753431@qq.com</span>
+      <i class="fa-regular fa-copy" style="margin-left: 8px; font-size: 0.8rem;"></i>
+    </div>
+  </header>
+
+  <div class="qr-section">
+    <div class="qr-wrapper">
+      <!-- 这里的 juhe.jpg 请确保在同一目录下，或者替换为真实URL -->
+      <img id="qrCode" src="juhe.jpg" alt="赞助二维码" >
+    </div>
+    
+    <div class="payment-methods">
+      <span class="tag"><i class="fa-brands fa-weixin"></i> 微信支付</span>
+      <span class="tag"><i class="fa-brands fa-alipay"></i> 支付宝</span>
+      <span class="tag"><i class="fa-regular fa-credit-card"></i> 银联/信用卡</span>
+      <span class="tag"><i class="fa-solid fa-seedling"></i> 花呗</span>
+    </div>
+
+    <a href="https://chenluyao.eu.org/file/" target="_blank" class="link-btn">
+      查看我的文件直链项目 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </a>
   </div>
+
+  <div class="sponsor-section">
+    <div class="section-title">
+      <span><i class="fa-solid fa-trophy"></i> 赞助荣誉榜</span>
+      <span class="hint">点击行查看留言</span>
+    </div>
+    
+    <div class="sponsor-list" id="sponsorListContainer">
+      <!-- 列表将由JS生成 -->
+    </div>
+  </div>
+
 </div>
+
+<!-- 复制成功提示 -->
+<div id="toast" class="toast">邮箱已复制到剪贴板</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // 赞助名单数据，格式为 [{ name: '赞助者1', amount: 100, message: '留言1' }, { name: '赞助者2', amount: 200, message: '留言2' }, ...]
+  // 模拟数据：实际项目中可以从后端API获取
   var sponsors = [
-    { name: '成为第一个赞助者', amount: 0, message: '无' },
-    // 添加更多赞助者数据...
+    { name: '成为下一个赞助者', amount: 0, message: '期待您的加入...' }
   ];
 
   // 按金额降序排序
@@ -97,40 +397,78 @@ document.addEventListener("DOMContentLoaded", function() {
     return b.amount - a.amount;
   });
 
-  var sponsorDataElement = document.getElementById("sponsorData");
+  var listContainer = document.getElementById("sponsorListContainer");
 
-  // 动态生成赞助名单表格行
+  // 动态生成列表
   sponsors.forEach(function(sponsor) {
-    var row = document.createElement("tr");
-    row.innerHTML = "<td>" + sponsor.name + "</td><td>" + sponsor.amount + "</td>";
-    sponsorDataElement.appendChild(row);
+    var item = document.createElement("div");
+    item.classList.add("sponsor-item");
 
-    // 添加留言区域
-    var messageContainer = document.createElement("div");
-    messageContainer.classList.add("message-container");
-    row.parentNode.insertBefore(messageContainer, row.nextSibling);
-    var message = document.createElement("p");
-    message.textContent = sponsor.message;
-    messageContainer.appendChild(message);
-    messageContainer.style.display = "none";
-  });
+    // 获取名字的首字作为头像文字
+    var avatarText = sponsor.name.charAt(0).toUpperCase();
 
-  // 添加点击事件监听器
-  var rows = document.querySelectorAll("#sponsorData tr");
-  rows.forEach(function(row, index) {
-    row.addEventListener("click", function() {
-      var messageContainer = this.nextSibling;
-      if (messageContainer.style.display === "none") {
-        messageContainer.style.display = "block";
-      } else {
-        messageContainer.style.display = "none";
-      }
-    });
+    // 格式化金额
+    var formattedAmount = sponsor.amount > 0 ? '¥' + sponsor.amount : '待赞助';
+
+    item.innerHTML = `
+      <div class="sponsor-main" onclick="toggleMessage(this)">
+        <div class="sponsor-info">
+          <div class="avatar">${avatarText}</div>
+          <span class="sponsor-name">${sponsor.name}</span>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span class="sponsor-amount">${formattedAmount}</span>
+          <i class="fa-solid fa-chevron-down toggle-icon"></i>
+        </div>
+      </div>
+      <div class="message-content">
+        <p class="message-text">“${sponsor.message}”</p>
+      </div>
+    `;
+
+    listContainer.appendChild(item);
   });
 });
+
+// 切换留言显示的函数
+function toggleMessage(element) {
+  var parent = element.parentElement;
+  
+  // 关闭其他已打开的项（手风琴效果，可选）
+  // var allItems = document.querySelectorAll('.sponsor-item');
+  // allItems.forEach(function(item) {
+  //   if (item !== parent) item.classList.remove('active');
+  // });
+
+  parent.classList.toggle('active');
+}
+
+// 复制邮箱功能
+function copyEmail() {
+  var email = document.getElementById("emailText").innerText;
+  navigator.clipboard.writeText(email).then(function() {
+    showToast("邮箱已复制: " + email);
+  }, function(err) {
+    // 降级处理
+    var textArea = document.createElement("textarea");
+    textArea.value = email;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("Copy");
+    textArea.remove();
+    showToast("邮箱已复制");
+  });
+}
+
+function showToast(message) {
+  var toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  setTimeout(function() {
+    toast.classList.remove("show");
+  }, 3000);
+}
 </script>
-<div id="sponsorship">
-  <a href="https://github.com/cly312/donatepage/" target="_blank">View it on Github</a>
-</div>
+
 </body>
 </html>
